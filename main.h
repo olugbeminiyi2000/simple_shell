@@ -16,5 +16,6 @@ void print_environment(void);
 int change_directory(char *dir);
 size_t  _strlen(const char *str);
 int _strcmp(const char *str1, const char *str2);
-
+void intToStr(int num, char* str, int size);
+size_t my_sizeof_var(const void* object);
 #endif

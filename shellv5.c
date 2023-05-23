@@ -139,7 +139,7 @@ int execute_command(char **args)
 		print_string(args[0]);
 		print_string("' exited with status ");
 		char exit_status_str[4];
-		snprintf(exit_status_str, sizeof(exit_status_str), "%d", WEXITSTATUS(status));
+		intToStr(WEXITSTATUS(status), exit_status_str, my_sizeof_var(exit_status_str));
 		print_string(exit_status_str);
 		print_string("\n");
 	}
