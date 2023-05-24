@@ -18,4 +18,6 @@ size_t  _strlen(const char *str);
 int _strcmp(const char *str1, const char *str2);
 void intToStr(int num, char* str, int size);
 size_t my_sizeof_var(const void* object);
+char *_strncpy(char *dest, const char *src, size_t n);
+
 #endif

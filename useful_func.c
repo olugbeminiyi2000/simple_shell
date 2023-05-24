@@ -67,3 +67,25 @@ void intToStr(int num, char* str, int size) {
 size_t my_sizeof_var(const void* object) {
     return (size_t)(*(char(*)[1])object - *(char(*)[0])object);
 }
+
+char *_strncpy(char *dest, const char *src, size_t n)
+{
+    char *dest_start = dest;
+
+    // Copy at most n characters from src to dest
+    while (*src && n > 0)
+    {
+        *dest++ = *src++;
+        n--;
+    }
+
+    // If n is greater than the length of src, pad dest with null bytes
+    while (n > 0)
+    {
+        *dest++ = '\0';
+        n--;
+    }
+
+    return dest_start;
+}
+
