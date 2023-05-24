@@ -108,6 +108,7 @@ int is_cd_command(const char *command)
  */
 int execute_command(char **args)
 {
+	char exit_status_str[4];
 	pid_t pid = fork();
 	if (pid < 0)
 	{
@@ -115,7 +116,7 @@ int execute_command(char **args)
 	}
 	else if (pid == 0)
 	{
-        /* Child process*/
+       
         int result = execvp(args[0], args);
 	if (result == -1)
 	{
@@ -127,7 +128,7 @@ int execute_command(char **args)
 	}
 	else
 	{
-        // Parent process
+        
 	int status;
 	if (waitpid(pid, &status, 0) == -1)
 	{
@@ -138,7 +139,7 @@ int execute_command(char **args)
 		print_string("Command '");
 		print_string(args[0]);
 		print_string("' exited with status ");
-		char exit_status_str[4];
+		/*exit_status_str[4];*/
 		intToStr(WEXITSTATUS(status), exit_status_str, my_sizeof_var(exit_status_str));
 		print_string(exit_status_str);
 		print_string("\n");

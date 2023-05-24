@@ -30,34 +30,36 @@ int _strcmp(const char *str1, const char *str2)
 	}
 	return (*str1 - *str2);
 }
-// Function to convert an integer to a string
+
 void intToStr(int num, char* str, int size) {
     int i = 0;
     int isNegative = 0;
-
-    // Handle negative numbers
+    int len;
+    
     if (num < 0) {
         isNegative = 1;
         num = -num;
     }
+    if (size <= isNegative)
+	    return;
 
-    // Convert each digit to a character in reverse order
+    
     while (num != 0) {
         int digit = num % 10;
         str[i++] = '0' + digit;
         num /= 10;
     }
 
-    // Add the negative sign if necessary
+    
     if (isNegative) {
         str[i++] = '-';
     }
 
-    // Add null terminator at the end
+    
     str[i] = '\0';
 
-    // Reverse the string
-    int len = i;
+    
+    len = i;
     for (i = 0; i < len / 2; i++) {
         char temp = str[i];
         str[i] = str[len - i - 1];
@@ -65,5 +67,29 @@ void intToStr(int num, char* str, int size) {
     }
 }
 size_t my_sizeof_var(const void* object) {
-    return (size_t)(*(char(*)[1])object - *(char(*)[0])object);
+	const char* charPtr = (const char*)object;
+
+	return sizeof(*charPtr);
 }
+
+char *_strncpy(char *dest, const char *src, size_t n)
+{
+    char *dest_start = dest;
+
+    
+    while (*src && n > 0)
+    {
+        *dest++ = *src++;
+        n--;
+    }
+
+    
+    while (n > 0)
+    {
+        *dest++ = '\0';
+        n--;
+    }
+
+    return dest_start;
+}
+
