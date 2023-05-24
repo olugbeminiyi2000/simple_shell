@@ -24,7 +24,6 @@ int main(int argc, char *argv[])
     char *args[MAX_ARGUMENTS];
     int num_args;
     int input_fd = STDIN_FILENO;
-    int interactive_mode = 1;
     ssize_t i;
     size_t j;
     char buffer[MAX_COMMAND_LENGTH];
@@ -41,7 +40,7 @@ int main(int argc, char *argv[])
             perror("Error opening input file");
             return 1;
         }
-        interactive_mode = 0;
+        
     }
 
    /* char buffer[MAX_COMMAND_LENGTH];
@@ -50,9 +49,11 @@ int main(int argc, char *argv[])
 
     while (1)
     {
-        if (interactive_mode)
+        if (isatty (STDIN_FILENO))
+	{
             print_string("$ ");
-
+	    fflush(stdout);
+	}
         bytes_read = read(input_fd, buffer + total_bytes_read, MAX_COMMAND_LENGTH - total_bytes_read - 1);
         if (bytes_read == -1)
         {
