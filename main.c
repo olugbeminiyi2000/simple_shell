@@ -25,6 +25,13 @@ int main(int argc, char *argv[])
     int num_args;
     int input_fd = STDIN_FILENO;
     int interactive_mode = 1;
+    ssize_t i;
+    size_t j;
+    char buffer[MAX_COMMAND_LENGTH];
+    ssize_t bytes_read;
+    ssize_t total_bytes_read = 0;
+    size_t command_start = 0;
+    size_t remaining_bytes;
 
     if (argc > 1)
     {
@@ -34,17 +41,17 @@ int main(int argc, char *argv[])
             perror("Error opening input file");
             return 1;
         }
-        interactive_mode = 0; // Switch to non-interactive mode
+        interactive_mode = 0;
     }
 
-    char buffer[MAX_COMMAND_LENGTH];
+   /* char buffer[MAX_COMMAND_LENGTH];
     ssize_t bytes_read;
-    size_t total_bytes_read = 0;
+    size_t total_bytes_read = 0;*/
 
     while (1)
     {
         if (interactive_mode)
-            print_string("$ "); /* Display prompt */
+            print_string("$ ");
 
         bytes_read = read(input_fd, buffer + total_bytes_read, MAX_COMMAND_LENGTH - total_bytes_read - 1);
         if (bytes_read == -1)
@@ -54,37 +61,37 @@ int main(int argc, char *argv[])
         }
         if (bytes_read == 0)
         {
-            // End of input
+            
             if (total_bytes_read == 0)
                 break;
         }
 
         total_bytes_read += bytes_read;
-        buffer[total_bytes_read] = '\0'; // Null-terminate the buffer
+        buffer[total_bytes_read] = '\0';
 
-        size_t command_start = 0;
-        for (size_t i = 0; i < total_bytes_read; i++)
+       /* size_t command_start = 0;*/
+        for (i = 0; i < total_bytes_read; i++)
         {
             if (buffer[i] == '\n')
             {
-                // Extract the command from the buffer
+                
                 size_t command_length = i - command_start;
                 _strncpy(command, buffer + command_start, command_length);
-                command[command_length] = '\0'; // Null-terminate the command
+                command[command_length] = '\0'; 
 
-                // Shift the remaining bytes in the buffer
-                size_t remaining_bytes = total_bytes_read - i - 1;
-                for (size_t j = 0; j < remaining_bytes; j++)
+               
+                remaining_bytes = total_bytes_read - i - 1;
+                for (j = 0; j < remaining_bytes; j++)
                     buffer[j] = buffer[i + j + 1];
                 total_bytes_read = remaining_bytes;
 
-                // Process the command
+             
                 parse_arguments(command, args, &num_args);
                 if (num_args == 0)
                     continue;
 
                 if (is_exit_command(args[0]))
-                    return 0; /* Exit the shell */
+                    return 0; 
 
                 if (is_env_command(args[0]))
                 {
@@ -106,7 +113,7 @@ int main(int argc, char *argv[])
 
                 execute_command(args);
 
-                command_start = 0; // Reset the command start position
+                command_start = 0; 
             }
         }
     }
