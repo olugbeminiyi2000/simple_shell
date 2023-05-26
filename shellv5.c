@@ -148,7 +148,7 @@ int execute_command(char **args)
 	return (0);
 }
 /**
- * print_enviroment -a function to print thge env
+ * print_enviroment -a function to print thge env/
  * Return: (void)
  */
 void print_environment(void)

@@ -19,7 +19,7 @@ size_t _strlen(const char *str)
  * _strcmp -a function that compare the ASIC cod of two strings
  * @str1: first string to compare
  * @str2: second strig to compare
- * Return: an int
+ * Return: an int,,
  */
 int _strcmp(const char *str1, const char *str2)
 {

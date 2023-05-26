@@ -12,7 +12,7 @@
 #define MAX_ARGUMENTS 10
 
 /**
- * main - program entry point
+ * main - program entry point,
  * @argc: number of command-line arguments
  * @argv: array of command-line arguments
  * Return: an int (0) if successful
